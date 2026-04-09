@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NexStore | Animated Experience</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
+</head>
+<body>
+
+    <div id="order-success-overlay">
+        <div class="success-card-3d">
+            <i class="fas fa-check-circle"></i>
+            <h2>Order Placed Successfully!</h2>
+            <p style="color: #64748b; margin-top: 10px;">Your premium gadget is on its way.</p>
+            <button onclick="closeSuccess()" style="width: 150px; margin-top: 25px;">Great!</button>
+        </div>
+    </div>
+
+    <div class="sidebar-icon" id="sidebarIcon" onclick="toggleSidebar()"><i class="fas fa-bars"></i></div>
+    <nav id="sidebar">
+        <h2 style="color: var(--primary); margin-bottom: 30px;">NexStore</h2>
+        <a href="#" class="nav-item" onclick="toggleSidebar()">Home</a>
+        <a href="#shop" class="nav-item" onclick="toggleSidebar()">Shop</a>
+        <a href="#about" class="nav-item" onclick="toggleSidebar()">Our Story</a>
+        <a href="mailto:support@nexstore.ai?subject=Inquiry" class="nav-item">Contact</a>
+    </nav>
+
+    <div class="cart-icon" id="cartIcon" onclick="toggleCart()">
+        <i class="fas fa-shopping-cart"></i>
+        <span id="cart-badge">0</span>
+    </div>
+
+    <div id="cart-drawer">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+            <h3>My Cart</h3>
+            <i class="fas fa-times" onclick="toggleCart()" style="cursor:pointer"></i>
+        </div>
+        <div id="cart-items"></div>
+        <div id="cart-empty-msg" style="text-align: center; color: #94a3b8; margin-top: 20px;">Your cart is empty</div>
+    </div>
+
+    <div id="auth-container">
+        <div id="auth-box" class="auth-card">
+            <h2 id="auth-title">Register</h2>
+            <div id="reg-inputs">
+                <input type="text" id="user" placeholder="Username">
+            </div>
+            <input type="email" id="email" placeholder="Email Address">
+            <input type="password" id="pass" placeholder="Password">
+            <button onclick="handleAuth()" id="auth-btn">Create Account</button>
+            <p style="margin-top:15px; font-size: 0.8rem; cursor:pointer" onclick="toggleAuthMode()" id="auth-toggle">Already have an account? Login</p>
+        </div>
+    </div>
+
+    <div id="main-content">
+        <section class="hero animate-on-scroll">
+            <h1 style="font-size: 4rem; letter-spacing: -2px;">Future of Retail.</h1>
+            <p style="color: #64748b;">Premium gadgets for a digital-first world.</p>
+            
+            <div class="top-search-wrapper">
+                <i class="fas fa-search"></i>
+                <input type="text" id="productSearch" placeholder="Search gadgets..." onkeyup="filterProducts()">
+            </div>
+        </section>
+
+        <div id="offers" class="broadcast-container">
+            <div class="broadcast-content">
+                <span>🎁 Special Offer: Buy 2 Get 1 Free on Cyber Watches!</span>
+                <span>🚀 Free global shipping on all orders over $500!</span>
+                <span>🔥 New Ocular Vision VR Headsets now in stock!</span>
+                <span>⚡ Use code NEXGEN for 10% off your first purchase!</span>
+            </div>
+        </div>
+
+        <section id="shop" class="grid">
+            <div class="product-card animate-on-scroll" data-name="cyber watch" onclick="openProduct('Cyber Watch', '249', 'https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=600', 'Premium titanium body with sapphire glass and 10-day battery life.')">
+                <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=600" alt="Watch">
+                <h3 style="margin-top:15px;">Cyber Watch</h3>
+                <p>$249.00</p>
+            </div>
+            <div class="product-card animate-on-scroll" data-name="sonic buds" onclick="openProduct('Sonic Buds', '129', 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=600', 'Studio-grade sound with active noise cancellation and spatial audio.')">
+                <img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=600" alt="Headphones">
+                <h3 style="margin-top:15px;">Sonic Buds</h3>
+                <p>$129.00</p>
+            </div>
+            <div class="product-card animate-on-scroll" data-name="ocular vision vr" onclick="openProduct('Ocular Vision', '899', 'https://images.unsplash.com/photo-1622979135225-d2ba269cf1ac?w=600', 'Next-gen VR headset with 8K resolution and eye tracking technology.')">
+                <img src="https://images.unsplash.com/photo-1622979135225-d2ba269cf1ac?w=600" alt="VR Headset">
+                <h3 style="margin-top:15px;">Ocular Vision</h3>
+                <p>$899.00</p>
+            </div>
+
+            <div class="product-card animate-on-scroll" data-name="nexus smart ring" onclick="openProduct('Nexus Smart Ring', '199', 'https://images.unsplash.com/photo-1610940882244-596623663583?w=600', 'Minimalist health tracking ring. Monitors heart rate, sleep, and steps in a sleek ceramic finish.')">
+                <img src="https://images.unsplash.com/photo-1610940882244-596623663583?w=600" alt="Smart Ring">
+                <h3 style="margin-top:15px;">Nexus Smart Ring</h3>
+                <p>$199.00</p>
+            </div>
+            <div class="product-card animate-on-scroll" data-name="aero laptop pro" onclick="openProduct('Aero Laptop Pro', '1499', 'https://images.unsplash.com/photo-1517336714731-489689fd1ca8?w=600', 'Ultra-slim aluminum body with 16-core processing power and 4K OLED display.')">
+                <img src="https://images.unsplash.com/photo-1517336714731-489689fd1ca8?w=600" alt="Laptop">
+                <h3 style="margin-top:15px;">Aero Laptop Pro</h3>
+                <p>$1499.00</p>
+            </div>
+            <div class="product-card animate-on-scroll" data-name="nomad camera" onclick="openProduct('Nomad Camera', '650', 'https://images.unsplash.com/photo-1516035069371-29a1b244cc32?w=600', 'Compact mirrorless camera designed for travelers. 24MP sensor and stabilized video.')">
+                <img src="https://images.unsplash.com/photo-1516035069371-29a1b244cc32?w=600" alt="Camera">
+                <h3 style="margin-top:15px;">Nomad Camera</h3>
+                <p>$650.00</p>
+            </div>
+
+            <div id="no-results">No gadgets match your search...</div>
+        </section>
+
+        <section id="about" class="animate-on-scroll" style="padding: 100px 10%; text-align: left; background: white; display: grid; grid-template-columns: 1fr 1fr; gap: 50px; align-items: center;">
+            <div>
+                <img src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=600" style="width: 100%; border-radius: 30px; box-shadow: 20px 20px 60px #bebebe, -20px -20px 60px #ffffff;">
+            </div>
+            <div>
+                <h2 style="font-size: 2.5rem; margin-bottom: 20px;">The NexStore Legacy</h2>
+                <p style="color: #64748b; line-height: 1.8; margin-bottom: 15px;">
+                    Founded in 2024, NexStore was born from a simple obsession: to eliminate the clutter of modern technology and focus on the <strong>essential</strong>. We believe that technology should be an extension of yourself—seamless, beautiful, and incredibly powerful.
+                </p>
+                <p style="color: #64748b; line-height: 1.8; margin-bottom: 15px;">
+                    Our team of engineers and designers scours the globe for hardware that meets our rigorous standards for sustainability and performance. When you buy from us, you aren't just getting a gadget; you're joining a community of visionaries.
+                </p>
+                <div style="display: flex; gap: 20px; margin-top: 30px;">
+                    <div><h3 style="color: var(--primary);">50k+</h3><p style="font-size: 0.8rem;">Happy Users</p></div>
+                    <div><h3 style="color: var(--primary);">12</h3><p style="font-size: 0.8rem;">Design Awards</p></div>
+                    <div><h3 style="color: var(--primary);">100%</h3><p style="font-size: 0.8rem;">Sustainable</p></div>
+                </div>
+            </div>
+        </section>
+
+        <footer id="contact" style="background: var(--dark); color: white; padding: 80px 10%;">
+            <div style="display: flex; justify-content: space-between; flex-wrap: wrap;">
+                <div>
+                    <h3>Help & Support</h3>
+                    <p style="color: #94a3b8; margin-top: 10px;">support@nexstore.ai</p>
+                </div>
+                <div>
+                    <button onclick="window.location.href='mailto:support@nexstore.ai?subject=Customer Support'" style="background: white; color: var(--dark); width: 200px;">Contact Us</button>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <div id="product-modal">
+        <div class="modal-content">
+            <img src="" id="modal-img" class="modal-img">
+            <div class="modal-details">
+                <i class="fas fa-times close-modal" onclick="closeProduct()"></i>
+                <h2 id="modal-title">Product Name</h2>
+                <p id="modal-price" style="color: var(--primary); font-size: 1.5rem; margin: 10px 0;">$0.00</p>
+                <p id="modal-desc" style="color: #64748b; margin-bottom: 20px;">Description goes here.</p>
+                
+                <h4>Select Variety</h4>
+                <div class="variety-dot" style="background: #0f172a;" onclick="updateVariety('Obsidian')"></div>
+                <div class="variety-dot" style="background: #6366f1;" onclick="updateVariety('Prism')"></div>
+                <div class="variety-dot" style="background: #e2e8f0;" onclick="updateVariety('Ghost')"></div>
+                <p id="variety-label" style="font-size: 0.8rem; color: #94a3b8; margin-bottom: 15px;">Selected: Obsidian</p>
+                
+                <button id="add-to-cart-btn">Add to Cart</button>
+                <button id="buy-now-btn" class="buy-btn" onclick="placeOrder()">Buy Now</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
